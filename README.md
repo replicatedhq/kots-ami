@@ -25,6 +25,16 @@ https://hub.docker.com/r/hashicorp/packer/
 docker run <args> hashicorp/packer:light <command>
 ```
 
+### Init
+
+```bash
+docker run \
+    -v `pwd`:/workspace -w /workspace \
+    -e PACKER_PLUGIN_PATH=/workspace/.packer.d/plugins \
+    hashicorp/packer:latest \
+    init .
+```
+
 ### Validate
 
 ```bash
@@ -54,6 +64,7 @@ docker run \
     hashicorp/packer:latest \
     build .
 ```
+
 ```bash
 docker run \
     -v `pwd`:/workspace -w /workspace \
@@ -61,6 +72,7 @@ docker run \
     build --var-file var.json template.json
 ```
 
+```bash
 docker run \
     -v `pwd`:/workspace -w /workspace \
     -e PACKER_PLUGIN_PATH=/workspace/.packer.d/plugins \
@@ -68,6 +80,7 @@ docker run \
     -e AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID \
     hashicorp/packer:latest \
     build .
+```
 
 ## Contributors
 * [tdensmore](https://github.com/tdensmore)
