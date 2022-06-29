@@ -76,5 +76,5 @@ docker run \
 
 ## References
 
-https://www.packer.io/docs
-https://docs.microsoft.com/en-us/azure/virtual-machines/linux/build-image-with-packer
+* https://www.packer.io/docs
+* https://docs.microsoft.com/en-us/azure/virtual-machines/linux/build-image-with-packer
