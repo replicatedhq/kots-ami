@@ -70,9 +70,9 @@ docker run \
     build .
 
 ## Contributors
-[tdensmore](https://github.com/tdensmore)
-[jdtate101](https://github.com/jdtate101)
-[jdewinne](https://github.com/jdewinne)
+* [tdensmore](https://github.com/tdensmore)
+* [jdtate101](https://github.com/jdtate101)
+* [jdewinne](https://github.com/jdewinne)
 
 ## References
 
