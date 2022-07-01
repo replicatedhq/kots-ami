@@ -15,25 +15,24 @@ locals {
   timestamp = regex_replace(timestamp(), "[- TZ:]", "")
 }
 
-/* variable "ami_id" {
-  type    = string
-  default = "ami-6f68cf0f"
-} */
 variable "ami_prefix" {
   type    = string
-  default = "aws-ami"
+  default = "replicated"
 }
 variable "ami_region" {
   type    = string
-  default = "us-west-2"
+  default = "us-east-1"
 }
 variable "instance_type" {
   type    = string
-  default = "t2.micro"
+  default = "m4.xlarge"
+}
+variable "slug" {
+  type    = string
+  default = "sentry-pro"
 }
 
 source "amazon-ebs" "ubuntu" {
-  #ami_name      = "packer-linux-aws-redis"
   ami_name      = "${var.ami_prefix}-${local.timestamp}"
   instance_type = "${var.instance_type}"
   region        = "${var.ami_region}"
@@ -42,7 +41,7 @@ source "amazon-ebs" "ubuntu" {
   }
   source_ami_filter {
     filters = {
-      name                = "ubuntu/images/*ubuntu-xenial-16.04-amd64-server-*"
+      name                = "ubuntu/images/*ubuntu-focal-20.04-amd64-server-*"
       root-device-type    = "ebs"
       virtualization-type = "hvm"
     }
@@ -64,19 +63,17 @@ build {
     source      = "./install-kots.sh"
   }
   # move the kots-install script to be executed on initial instance launch
-  # use '/var/lib/cloud/scripts/per-boot' to run at every startup
+  # use '/var/lib/cloud/scripts/per-instance' to run at every startup
   provisioner "shell" {
     inline = [
+      "sed -i \"2 i export APP_SLUG=$APP_SLUG\" /tmp/install-kots.sh",
       "sudo mv /tmp/install-kots.sh /var/lib/cloud/scripts/per-instance/",
       "sudo chmod 744 /var/lib/cloud/scripts/per-instance/install-kots.sh"
     ]
+    environment_vars = [
+      "APP_SLUG=${var.slug}"
+    ]
   }
-
-  /* provisioner "shell" {
-    inline = ["echo This provisioner runs last"]
-  } */
-
-
-  }
+}
 
 

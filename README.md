@@ -17,7 +17,7 @@ packer build aws-ubuntu.pkr.hcl
 
 ## Install
 
-## Docker
+### Docker
 
 https://hub.docker.com/r/hashicorp/packer/
 
@@ -43,16 +43,6 @@ docker run \
     -e PACKER_PLUGIN_PATH=/workspace/.packer.d/plugins \
     hashicorp/packer:latest \
     validate .
-```
-
-### Init
-
-```bash
-docker run \
-    -v `pwd`:/workspace -w /workspace \
-    -e PACKER_PLUGIN_PATH=/workspace/.packer.d/plugins \
-    hashicorp/packer:latest \
-    init .
 ```
 
 ### Build
@@ -82,6 +72,13 @@ docker run \
     build .
 ```
 
+## Usage
+
+Once an ec-2 instance is created (Check the kURL [System Requirements](https://kurl.sh/docs/install-with-kurl/system-requirements#cloud-disk-performance) for an example on sizing), you can browse to http://INSTANCE_IP:8800. THe password will be in /tmp/install.txt.
+
+* It takes around 15 minutes for the k8s cluster to be up and running. Be patient.
+* Make sure port `8800` is added to the inbound rules.
+
 ## Contributors
 * [tdensmore](https://github.com/tdensmore)
 * [jdtate101](https://github.com/jdtate101)
@@ -91,3 +88,4 @@ docker run \
 
 * https://www.packer.io/docs
 * https://docs.microsoft.com/en-us/azure/virtual-machines/linux/build-image-with-packer
+
